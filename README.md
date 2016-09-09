@@ -32,4 +32,25 @@ library(org.Zmays.eg.db) # To load the package (This should be correct...
 # if the package is called zmaysGeneTools in RStudio and above doesn't work, then try: 
 library(zmaysGeneTools)
 ```
-That's it!  I may add further Zea mays genomic or transcriptomic tools to this repository in the future.  
+That's it!  I may add further Zea mays genomic or transcriptomic tools to this repository in the future. 
+
+## Usage:
+Here is a quick example of how you can use this database to convert from gene names of the type `GRMZM2G089713` to other information like GO terms, gene descriptions, etc.
+
+```r
+columns(org.Zmays.eg.db)
+# [1] "ACCNUM"      "ALIAS"       "CHR"         "ENTREZID"    "EVIDENCE"    "EVIDENCEALL"
+# [7] "GENENAME"    "GID"         "GO"          "GOALL"       "ONTOLOGY"    "ONTOLOGYALL"
+# [13] "PMID"        "REFSEQ"      "SYMBOL"      "UNIGENE"
+
+# random example for the gene with key = 100277953
+select(x = org.Zmays.eg.db, keys = "100277953", columns = c("ACCNUM", "ALIAS", "GENENAME"))
+
+# Make a list of your own genes of interest
+myGenes = c("GRMZM2G024993","GRMZM2G089713","GRMZM2G005066","GRMZM2G016241","GRMZM2G133398") # You can enter your own genes here or read in a dataset and pass the genes as a vector
+
+# This time, save the result to a dataframe for easy viewing or exporting to csv/excel
+exampleSet <- select(x = org.Zmays.eg.db, keys = myGenes, columns = c("ALIAS", "GENENAME","GO", "ONTOLOGY", "SYMBOL", "UNIGENE"), keytype = "ALIAS")
+```
+
+Good luck!
