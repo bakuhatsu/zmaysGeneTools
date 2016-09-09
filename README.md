@@ -47,10 +47,15 @@ columns(org.Zmays.eg.db)
 select(x = org.Zmays.eg.db, keys = "100277953", columns = c("ACCNUM", "ALIAS", "GENENAME"))
 
 # Make a list of your own genes of interest
-myGenes = c("GRMZM2G024993","GRMZM2G089713","GRMZM2G005066","GRMZM2G016241","GRMZM2G133398") # You can enter your own genes here or read in a dataset and pass the genes as a vector
+myGenes = c("GRMZM2G024993","GRMZM2G089713","GRMZM2G005066","GRMZM2G016241","GRMZM2G133398") 
+# You can enter your own genes here or read in a dataset and pass the genes as a vector
 
 # This time, save the result to a dataframe for easy viewing or exporting to csv/excel
-exampleSet <- select(x = org.Zmays.eg.db, keys = myGenes, columns = c("ALIAS", "GENENAME","GO", "ONTOLOGY", "SYMBOL", "UNIGENE"), keytype = "ALIAS")
+exampleSet <- select(
+        x = org.Zmays.eg.db, 
+        keys = myGenes, 
+        columns = c("ALIAS", "GENENAME","GO", "ONTOLOGY", "SYMBOL", "UNIGENE"), 
+        keytype = "ALIAS")
 ```
 
 Good luck!
