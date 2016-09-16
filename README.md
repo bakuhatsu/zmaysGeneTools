@@ -57,7 +57,7 @@ exampleSet <- select(
         columns = c("ALIAS", "GENENAME","GO", "ONTOLOGY", "SYMBOL", "UNIGENE"), 
         keytype = "ALIAS")
 ```
-You may notice that if you have certain columns like `GO` where there are more than 1 GO term for a given gene, that you get an output message that says "mapped 1:many" or something similer.  You will then see in your dataframe that you have multiple rows for the same gene, each corresponding to a different GO term for that gene.  To collape these rows together and put all GO terms (works for any of the columns) into the same "cell" seperated by columns, use the code below (modify based on the columns that you chose above).  
+You may notice that if you have certain columns like `GO` where there are more than 1 GO term for a given gene, that you get an output message that says "mapped 1:many" or something similar.  You will then see in your dataframe that you have multiple rows for the same gene, each corresponding to a different GO term for that gene.  To collape these rows together and put all GO terms (works for any of the columns) into the same "cell" seperated by columns, use the code below (modify based on the columns that you chose above).  
 
 ```r
 library(plyr) # Install plyr if you don't already have it installed
