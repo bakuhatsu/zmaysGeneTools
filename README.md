@@ -57,5 +57,34 @@ exampleSet <- select(
         columns = c("ALIAS", "GENENAME","GO", "ONTOLOGY", "SYMBOL", "UNIGENE"), 
         keytype = "ALIAS")
 ```
+You may notice that if you have certain columns like `GO` where there are more than 1 GO term for a given gene, that you get an output message that says "mapped 1:many" or something similer.  You will then see in your dataframe that you have multiple rows for the same gene, each corresponding to a different GO term for that gene.  To collape these rows together and put all GO terms (works for any of the columns) into the same "cell" seperated by columns, use the code below (modify based on the columns that you chose above).  
+
+```r
+library(plyr) # Install plyr if you don't already have it installed
+exampleSet <- ddply(exampleSet, "ALIAS", summarize, 
+      GENENAME = paste(GENENAME, collapse = ", "),
+      GO = paste(GO, collapse = ", "),
+      ONTOLOGY = paste(ONTOLOGY, collapse = ", "),
+      SYMBOL = paste(SYMBOL, collapse = ", "),
+      UNIGENE = paste(UNIGENE, collapse = ", ")
+```
+
 
 Good luck!
+
+## Troubleshooting tip:
+
+If you are getting an error from your `select()` call, you may have another package loaded that also has a `select()` function and R is trying to use the wrong one.  To specify that you use the correct select function from the `AnnotationDBi` package, use code in the form of `AnnotationDbi::select()` when you make your function calls.  So the code above would look like: 
+
+```r
+...
+# random example for the gene with key = 100277953
+AnnotationDbi::select(x = org.Zmays.eg.db, keys = "100277953", columns = c("ACCNUM", "ALIAS", "GENENAME"))
+...
+# This time, save the result to a dataframe for easy viewing or exporting to csv/excel
+exampleSet <- AnnotationDbi::select(
+        x = org.Zmays.eg.db, 
+        keys = myGenes, 
+        columns = c("ALIAS", "GENENAME","GO", "ONTOLOGY", "SYMBOL", "UNIGENE"), 
+        keytype = "ALIAS")
+```
